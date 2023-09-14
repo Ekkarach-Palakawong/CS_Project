@@ -94,20 +94,25 @@ with mp_face_mesh.FaceMesh(
                 (r_cx, r_cy), r_radius = cv.minEnclosingCircle(mesh_points[RIGHT_IRIS])
                 center_left = np.array([l_cx, l_cy], dtype = np.int32)
                 center_right = np.array([r_cx, r_cy], dtype = np.int32)
+
                 #cropiris
                 cv.circle(frame, center_left, int(l_radius), (255,0,255), 1, cv.LINE_AA)
                 cv.circle(frame, center_right, int(l_radius), (255,0,255), 1, cv.LINE_AA)
                 cv.circle(frame, mesh_points[R_H_RIGHT][0], 3, (255,255,255), -1, cv.LINE_AA)
                 cv.circle(frame, mesh_points[R_H_LEFT][0], 3, (0,255,255), -1, cv.LINE_AA)
+
                 righteye_iris_pos, right_ratio = iris_position(
-                    center_right, mesh_points[R_H_RIGHT], mesh_points[R_H_LEFT][0]
+                    center_right, mesh_points[R_H_RIGHT], 
+                    mesh_points[R_H_LEFT][0]
                 )
                 lefteye_iris_pos, left_ratio = iris_position(
-                    center_left, mesh_points[L_H_RIGHT], mesh_points[L_H_LEFT][0]
+                    center_left, mesh_points[L_H_RIGHT], 
+                    mesh_points[L_H_LEFT][0]
                 )
-                
-                writer1.writerow(center_right)
-                writer2.writerow(center_left)
+
+                #iris position 
+                #writer1.writerow(center_right)
+                #writer2.writerow(center_left)
 
                 right_eye_angle, right_eye_radius, left_eye_angle, left_eye_radius = iris_position_polar(
                     center_right, mesh_points[R_H_RIGHT][0], mesh_points[R_H_LEFT][0]
@@ -116,11 +121,15 @@ with mp_face_mesh.FaceMesh(
                 right_eye_angle_deg = np.degrees(right_eye_angle)
                 left_eye_angle_deg = np.degrees(left_eye_angle)
 
+                #iris position but polar
+                writer1.writerow([right_eye_angle_deg,right_eye_radius])
+                writer2.writerow([left_eye_angle_deg,left_eye_radius])
+
                 
-                print("Right Eye Iris Angle (degrees):", right_eye_angle_deg)
-                print("Right Eye Iris Radius:", right_eye_radius)
-                print("Left Eye Iris Angle (degrees):", left_eye_angle_deg)
-                print("Left Eye Iris Radius:", left_eye_radius)
+                #print("Right Eye Iris Angle (degrees):", right_eye_angle_deg)
+                #print("Right Eye Iris Radius:", right_eye_radius)
+                #print("Left Eye Iris Angle (degrees):", left_eye_angle_deg)
+                #print("Left Eye Iris Radius:", left_eye_radius)
 
                 #print("Left Iris Position (x, y):", center_left)
                 #print("Right Iris Position (x, y):", center_right)
