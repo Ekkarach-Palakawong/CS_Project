@@ -168,17 +168,17 @@ def pixelCounter(first_piece, second_piece, third_piece):
         color=[utils.BLACK, utils.GREEN]
     elif max_index==1:
         pos_eye = 'CENTER'
-        color = [utils.YELLOW, utils.PINK]
+        color = [utils.BLACK, utils.PURPLE]
     elif max_index ==2:
         pos_eye = 'LEFT'
-        color = [utils.GRAY, utils.YELLOW]
+        color = [utils.BLACK, utils.YELLOW]
     else:
         pos_eye="Closed"
-        color = [utils.GRAY, utils.YELLOW]
+        color = [utils.BLACK, utils.RED]
     return pos_eye, color
 
-Video_path = r"C:\มอกะเสด\มหาลัย\ปี4\project_End\video_patient\test3.mp4"
-cap = cv.VideoCapture(Video_path)
+#Video_path = r"C:\มอกะเสด\มหาลัย\ปี4\project_End\video_patient\test3.mp4"
+cap = cv.VideoCapture(0)
 map_face_mesh = mp.solutions.face_mesh
 with map_face_mesh.FaceMesh(
         min_detection_confidence =0.5, 

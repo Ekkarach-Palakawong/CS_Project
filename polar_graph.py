@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 iris_angles = []
 iris_radius = []
 i=0
-file1 = open('test_left.csv', 'r') 
+file1 = open('test_right.csv', 'r') 
 try:
         for line in file1:
             line_values = line.split(',')

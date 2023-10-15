@@ -1,7 +1,7 @@
 import cv2 as cv
 
 # Replace "your_video_file_path.mp4" with the actual file path of your video
-video_path = (r"C:\มอกะเสด\มหาลัย\ปี4\project_End\video_patient\test2.mp4")
+video_path = r"C:\มอกะเสด\มหาลัย\ปี4\project_End\video_patient\left_BPPV\L_CYTD.mp4"
 
 # Create a VideoCapture object to open the video file
 cap = cv.VideoCapture(video_path)
@@ -11,14 +11,9 @@ if not cap.isOpened():
     print("Error: Unable to open the video file.")
 else:
     while True:
-        # Read a frame from the video
         ret, frame = cap.read()
-
-        # Check if the frame was read successfully
         if not ret:
-            break  # If the frame couldn't be read, the end of the video has been reached
-
-        # Display the frame for ROI selection
+            break
         cv.imshow('Select ROI', frame)
 
         # Allow the user to select the ROI using the mouse
