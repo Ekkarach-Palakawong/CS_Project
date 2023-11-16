@@ -4,6 +4,7 @@ import cv2 as cv
 import numpy as np 
 import mediapipe as mp
 from scipy.fft import fft
+from moviepy.editor import *
 
 LEFT_EYE =[ 362, 382, 381, 380, 374, 373, 390, 249, 263, 466, 388, 387, 386, 385,384, 398 ] 
 RIGHT_EYE=[ 33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161 , 246 ]
@@ -53,7 +54,7 @@ def iris_position_polar(iris_center, right_point, left_point):
     return angle_right, radius_right, angle_left, radius_left
 
 # Load the video file
-Video_path = r"C:\มอกะเสด\มหาลัย\ปี4\project_End\video_patient\left_BPPV\L_CYTD.mp4"
+Video_path = r"C:\Users\pnaSu\Desktop\openCV_project\video_patient\right_BPPV\right1.mp4"
 mp_face_mesh =  mp.solutions.face_mesh
 camera = cv.VideoCapture(Video_path)
 with mp_face_mesh.FaceMesh( 
@@ -63,12 +64,12 @@ with mp_face_mesh.FaceMesh(
     min_tracking_confidence = 0.5 
 ) as face_mesh: 
     try:
-        file1 = open('test_right.csv', 'w', newline = '' )
-        file2 = open('test_left.csv', 'w', newline = '' )
-        file3 = open('totalframe.csv', 'w', newline = '' )
+        file1 = open('right1_Lefteye.csv', 'w', newline = '' )
+        file2 = open('right1_Righteye.csv', 'w', newline = '' )
+        #file3 = open('totalframe.csv', 'w', newline = '' )
         writer1 = csv.writer(file1)
         writer2 = csv.writer(file2)
-        writer3 = csv.writer(file3)
+        #writer3 = csv.writer(file3)
 
         total_frames = int(camera.get(cv.CAP_PROP_FRAME_COUNT))
         fps = int(camera.get(cv.CAP_PROP_FPS))
@@ -80,11 +81,11 @@ with mp_face_mesh.FaceMesh(
             frame = cv.flip(frame, 1) 
             frame = cv.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv.INTER_CUBIC)
             rgb_frame = cv.cvtColor(frame, cv. COLOR_BGR2RGB) 
-            img_h, img_w = frame.shape[:2] 
-            results = face_mesh.process(rgb_frame) 
+            img_h, img_w = frame.shape[:2]
+            results = face_mesh.process(rgb_frame)
             gray_roi = cv.GaussianBlur(rgb_frame, (7, 7), 0)
             _, threshold = cv.threshold(gray_roi, 5, 255, cv.THRESH_BINARY_INV)
-            if results.multi_face_landmarks: 
+            if results.multi_face_landmarks:
                 mesh_points=np.array(
                     [
                         np.multiply([p.x, p.y], [img_w, img_h]).astype(int) 
@@ -133,8 +134,8 @@ with mp_face_mesh.FaceMesh(
                 left_eye_angle_deg = np.degrees(left_eye_angle)
 
                 #iris position but polar
-                writer1.writerow([right_eye_angle])
-                writer2.writerow([left_eye_angle])  
+                writer1.writerow([left_eye_angle])
+                writer2.writerow([right_eye_angle])  
                 #print(right_eye_angle)            
 
                 #print("Right Eye Iris Angle (degrees):", right_eye_angle_deg)
@@ -170,7 +171,7 @@ with mp_face_mesh.FaceMesh(
             cv.imshow('img', frame)
             if cv.waitKey(30) == ord('q'):
                 break
-        writer3.writerow([total_frames,time_in_seconds,fps]) 
+        #writer3.writerow([total_frames,time_in_seconds,fps]) 
         #print(time_in_seconds) 
         #print(fps)
     except FileNotFoundError as e:
@@ -179,9 +180,9 @@ with mp_face_mesh.FaceMesh(
         print(e)
     else:
         #print(file.read())
-        file1.close()
+        #file1.close()
         file2.close()
-        file3.close()
+        #file3.close()
 
 camera.release()
 cv.destroyAllWindows()
