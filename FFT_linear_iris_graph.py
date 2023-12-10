@@ -42,10 +42,10 @@ normalrighty = []
 
 path = "C:/Users/pnaSu/Desktop/openCV_project/csv/"
 
-file1 = open(path+'Nervouscenteriris_lefteye.csv', 'r')
+file1 = open(path+'Nervouscenteriris_lefteye.csv', 'r') 
 file2 = open(path+'Nervouscenteriris_righteye.csv', 'r')
-file3 = open(path+'left2centeriris_lefteye.csv', 'r')
-file4 = open(path+'left2centeriris_righteye.csv', 'r')
+file3 = open(path+'normalcenteriris_lefteye.csv', 'r')
+file4 = open(path+'normalcenteriris_righteye.csv', 'r')
 
 try:
     for index1 in file1:

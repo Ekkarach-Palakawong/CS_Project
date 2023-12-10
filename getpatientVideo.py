@@ -39,7 +39,7 @@ def iris_position(iris_center, right_point, left_point):
     return iris_position, ratio
 
 # Load the video file
-Video_path = r"C:\Users\pnaSu\Desktop\openCV_project\video_patient\Nervous_patient\modNer.mp4"
+Video_path = r"C:\Users\pnaSu\Desktop\openCV_project\video_patient\Nervous_patient\yt1s.com - Pendular Nystagmus.mp4"
 mp_face_mesh =  mp.solutions.face_mesh
 camera = cv.VideoCapture(Video_path)
 with mp_face_mesh.FaceMesh( 
@@ -50,8 +50,8 @@ with mp_face_mesh.FaceMesh(
 ) as face_mesh: 
     path = "C:/Users/pnaSu/Desktop/openCV_project/csv/"
     try:
-        file1 = open((path+"Nervouscenteriris_lefteye.csv"), 'w', newline = '' )
-        file2 = open((path+'Nervouscenteriris_righteye.csv'), 'w', newline = '' )
+        file1 = open((path+"Nervous2centeriris_lefteye.csv"), 'w', newline = '' )
+        file2 = open((path+'Nervous2centeriris_righteye.csv'), 'w', newline = '' )
         #file3 = open('totalframe.csv', 'r', newline = '' )
         writer1 = csv.writer(file1)
         writer2 = csv.writer(file2)
